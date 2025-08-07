@@ -1,0 +1,170 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SlideTeck Carousel Banner</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      overflow-x: hidden;
+    }.carousel-container {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 300%;
+}
+
+.slide {
+  flex: 0 0 100%;
+  position: relative;
+  text-align: center;
+}
+
+.slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  padding: 20px;
+}
+
+.dots {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.dot {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  background-color: #bbb;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.active {
+  background-color: #717171;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.controls button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  background: #333;
+  color: white;
+  cursor: pointer;
+}
+
+.circular-preview {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.circular-preview img {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.portfolio-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #0066cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+  </style>
+</head>
+<body><div class="carousel-container">
+  <div class="slides" id="slides">
+    <div class="slide">
+      <img src="https://slide-t.github.io/banner-1/" alt="Slide 1">
+    </div>
+    <div class="slide">
+      <img src="https://slide-t.github.io/banner-1/" alt="Slide 2">
+      <div class="overlay">SlideTeck Academy in Collaboration with EduKids Africa — Empowering Schools with Affordable Digital Solutions!</div>
+    </div>
+    <div class="slide">
+      <img src="https://slide-t.github.io/banner-1/" alt="Slide 3">
+      <div class="overlay">Get a Fully Integrated School Website for as Low as ₦25,000!</div>
+    </div>
+  </div>
+</div><div class="dots">
+  <span class="dot active" onclick="goToSlide(0)"></span>
+  <span class="dot" onclick="goToSlide(1)"></span>
+  <span class="dot" onclick="goToSlide(2)"></span>
+</div><div class="controls">
+  <button onclick="zoom(1.1)">Zoom In</button>
+  <button onclick="zoom(0.9)">Zoom Out</button>
+  <button onclick="flip()">Flip</button>
+  <button onclick="move('up')">Up</button>
+  <button onclick="move('down')">Down</button>
+</div><div class="circular-preview">
+  <img src="https://slide-t.github.io/banner-1/" alt="Circular Preview">
+</div><a class="portfolio-btn" href="https://slide-t.github.io/myportfolio/" target="_blank">View My Portfolio</a>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.getElementById('slides');
+  const dots = document.querySelectorAll('.dot');
+
+  function goToSlide(n) {
+    currentSlide = n;
+    slides.style.transform = `translateX(-${n * 100}%)`;
+    dots.forEach(dot => dot.classList.remove('active'));
+    dots[n].classList.add('active');
+  }
+
+  let scale = 1;
+  function zoom(factor) {
+    scale *= factor;
+    slides.style.transform = `scale(${scale}) translateX(-${currentSlide * 100}%)`;
+  }
+
+  function flip() {
+    slides.style.transform += ' rotateY(180deg)';
+  }
+
+  function move(direction) {
+    const current = slides.children[currentSlide].querySelector('img');
+    let top = parseInt(current.style.marginTop || 0);
+    if (direction === 'up') top -= 10;
+    else top += 10;
+    current.style.marginTop = `${top}px`;
+  }
+</script></body>
+</html>
